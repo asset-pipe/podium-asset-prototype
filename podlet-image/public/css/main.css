@@ -1,0 +1,11 @@
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    width: 100%;
+}
+.image-span-col-2{grid-column: span 2 / auto;}
+.image-span-row-3{grid-row: span 3 / auto;}
+h1 {
+    color: green;
+}

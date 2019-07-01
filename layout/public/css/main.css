@@ -1,0 +1,10 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.span-col-2{grid-column: span 2 / auto;}
+.span-col-3{grid-column: span 3 / auto;}

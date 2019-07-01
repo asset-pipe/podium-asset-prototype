@@ -1,0 +1,17 @@
+{
+  "name": "podlet-header",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./bin/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@podium/fastify-podlet": "^2.0.1",
+    "@podium/podlet": "4.0.1",
+    "fastify": "^2.5.0",
+    "fastify-static": "^2.5.0"
+  }
+}

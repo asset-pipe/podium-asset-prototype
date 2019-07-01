@@ -1,0 +1,17 @@
+{
+  "name": "podlet-footer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./bin/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/inert": "^5.2.0",
+    "@podium/hapi-podlet": "2.0.0",
+    "@podium/podlet": "4.0.1",
+    "hapi": "^18.1.0"
+  }
+}
