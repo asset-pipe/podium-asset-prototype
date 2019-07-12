@@ -10,9 +10,40 @@ const path = require('path');
 const input = path.join(__dirname, 'assets/js/main.js');
 const output = path.join(__dirname, 'public/js/');
 
-const esmInputOptions = {
+// INPUTS
+
+const esmPreservedInputOptions = {
     input,
     preserveModules: true,
+    onwarn: (warning, warn) => {
+        // Supress logging
+    },
+    // external: ['lit-element', 'wired-elements', 'vue'],
+    //  external: ['lit-element'],
+    plugins: [
+        resolve(),
+        commonjs(),
+    ]
+};
+
+const esmBundeledInputOptions = {
+    input,
+    onwarn: (warning, warn) => {
+        // Supress logging
+    },
+    // external: ['lit-element', 'wired-elements', 'vue'],
+    plugins: [
+        resolve(),
+        commonjs(),
+    ]
+};
+
+const esmMinifiedInputOptions = {
+    input,
+    onwarn: (warning, warn) => {
+        // Supress logging
+    },
+    // external: ['lit-element', 'wired-elements', 'vue'],
     plugins: [
         resolve(),
         commonjs(),
@@ -20,10 +51,7 @@ const esmInputOptions = {
     ]
 };
 
-const esmOutputOptions = {
-    format: 'esm',
-    dir: path.join(output, '/esm/'),
-};
+
 
 const cjsInputOptions = {
     input,
@@ -35,22 +63,79 @@ const cjsInputOptions = {
     ]
 };
 
-const cjsOutputOptions = {
-    format: 'cjs',
-    dir: path.join(output, '/cjs/'),
+
+// OUTPUTS
+
+const esmDirectoryOutputOptions = {
+    format: 'esm',
+    dir: path.join(output, '/src/'),
 };
 
+const iifeBundeledOutputOptions = {
+    format: 'iife',
+    sourcemap: true,
+    file: path.join(output, '/bundle.iife.js'),
+    name: 'PodletImage',
+    globals: {
+        'wired-elements': 'WiredElements',
+        'lit-element': 'LitElement',
+    },
+};
+
+const iifeMinifiedOutputOptions = {
+    format: 'iife',
+    sourcemap: true,
+    file: path.join(output, '/bundle.iife.min.js'),
+    name: 'PodletImage',
+    globals: {
+        'wired-elements': 'WiredElements',
+        'lit-element': 'LitElement',
+    },
+};
+
+const esmBundeledOutputOptions = {
+    format: 'esm',
+    sourcemap: true,
+    file: path.join(output, '/bundle.esm.js'),
+    name: 'PodletImage',
+    globals: {
+        'wired-elements': 'WiredElements',
+        'lit-element': 'LitElement',
+    },
+};
+
+const esmMinifiedOutputOptions = {
+    format: 'esm',
+    sourcemap: true,
+    file: path.join(output, '/bundle.esm.min.js'),
+    name: 'PodletImage',
+    globals: {
+        'wired-elements': 'WiredElements',
+        'lit-element': 'LitElement',
+    },
+};
+
+
 async function build() {
+    const preserved = await rollup.rollup(esmPreservedInputOptions);
+    await preserved.write(esmDirectoryOutputOptions);
+    console.log('src package build');
 
-    const esm = await rollup.rollup(esmInputOptions);
-    await esm.write(esmOutputOptions);
-    console.log('esm:', esm.watchFiles);
+    const iifeBundeled = await rollup.rollup(esmBundeledInputOptions);
+    await iifeBundeled.write(iifeBundeledOutputOptions);
+    console.log('iife package build');
 
-/*
-    const cjs = await rollup.rollup(cjsInputOptions);
-    await cjs.write(cjsOutputOptions);
-    console.log('cjs:', cjs.watchFiles);
-*/
+    const iifeMinified = await rollup.rollup(esmMinifiedInputOptions);
+    await iifeMinified.write(iifeMinifiedOutputOptions);
+    console.log('iife minified package build');
+
+    const esmBundeled = await rollup.rollup(esmBundeledInputOptions);
+    await esmBundeled.write(esmBundeledOutputOptions);
+    console.log('esm package build');
+
+    const esmMinified = await rollup.rollup(esmMinifiedInputOptions);
+    await esmMinified.write(esmMinifiedOutputOptions);
+    console.log('esm minified package build');
 }
 
 rimraf(output, () => {

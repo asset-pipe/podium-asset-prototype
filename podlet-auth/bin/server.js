@@ -43,7 +43,7 @@ app.use('/public', express.static('public', {
     etag: false
 }));
 podlet.css({ value: '/public/css/main.css' });
-podlet.js({ value: '/public/js/esm/assets/js/main.js', type: 'module' });
+podlet.js({ value: '/public/js/esm/assets/js/main.js', type: 'esm' });
 
 app.listen(7300, () => {
     console.log(`http://localhost:7300`);

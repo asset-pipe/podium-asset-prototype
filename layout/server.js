@@ -1,7 +1,11 @@
 'use strict';
 
+const compression = require('compression');
 const express = require('express');
 const Layout = require('@podium/layout');
+
+const app = express();
+app.use(compression());
 
 const layout = new Layout({
     name: 'example',
@@ -35,7 +39,7 @@ const geo = layout.client.register({
     uri: 'http://localhost:7400/manifest.json',
     resolveCss: true,
     resolveJs: true,
-    throwable: true,
+    throwable: false,
 });
 
 const images = layout.client.register({
@@ -44,9 +48,6 @@ const images = layout.client.register({
     resolveCss: true,
     resolveJs: true,
 });
-
-const app = express();
-
 
 app.use((req, res, next) => {
     res.locals = {
@@ -78,15 +79,14 @@ app.get('/', async (req, res, next) => {
             </div>
         `;
 
-        const css = incoming.css.concat(podlets.map(item => item.css).reduce((a, b) => a.concat(b), []));
-        const js = incoming.js.concat(podlets.map(item => item.js).reduce((a, b) => a.concat(b), []));
+        incoming.css = incoming.css.concat(podlets.map(item => item.css).reduce((a, b) => a.concat(b), []));
+        incoming.js = incoming.js.concat(podlets.map(item => item.js).reduce((a, b) => a.concat(b), []));
 
-        res.status(200).podiumSend({
-            title: 'Cat Inc',
-            body,
-            css,
-            js,
-        });
+        incoming.view = {
+            title: 'Catnip Tracker Inc.',
+        };
+
+        res.status(200).podiumSend(body);
     } catch(error) {
         next(error);
     }
@@ -95,8 +95,11 @@ app.get('/', async (req, res, next) => {
 app.use('/public', express.static('public', {
     etag: false
 }));
+
 layout.css({ value: '/public/css/main.css' });
-layout.js({ value: '/public/js/main.js' });
+
+layout.js({ value: 'https://cdn.pika.dev/wired-elements/v1', type: 'esm' });
+layout.js({ value: '/public/js/bundle.esm.min.js', type: 'esm' });
 
 app.use((error, req, res, next) => {
     res.status(500).send('Internal server error');

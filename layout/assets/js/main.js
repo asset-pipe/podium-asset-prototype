@@ -1,5 +1,9 @@
 'use strict';
 
+// import * from "wired-elements";
+// import * as WiredElements from 'wired-elements';
+import 'https://cdn.pika.dev/wired-elements/v1';
+
 // Workaround for lit-element not handling duplicates of itself
 // https://github.com/Polymer/polymer-starter-kit/issues/1123#issuecomment-434724376
 
@@ -12,3 +16,7 @@ window.customElements.define = (name, cl, conf) => {
         console.warn(`${name} has been defined twice`);
     }
 };
+
+export function load() {
+    console.log('hello');
+}

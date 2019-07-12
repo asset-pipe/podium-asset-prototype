@@ -2,11 +2,18 @@
 
 'use strict';
 
-import { WiredButton, WiredInput, WiredTextarea, WiredCard } from "wired-elements";
-/*
-import { LitElement, html, css } from 'lit-element';
+// import { WiredButton, WiredInput, WiredTextarea, WiredCard } from "wired-elements";
+// import * as pkg from 'https://cdn.pika.dev/wired-elements/v1';
+// import { WiredButton, WiredInput, WiredTextarea, WiredCard } from 'https://cdn.pika.dev/wired-elements/v1';
 
-class TestElement extends LitElement {
+// import { LitElement, html, css } from 'lit-element';
+
+// import { LitElement, html, css } from 'https://cdn.pika.dev/lit-element/v2';
+
+import { WiredButton, WiredInput, WiredTextarea, WiredCard } from 'https://cdn.pika.dev/wired-elements/v1';
+import * as lit from 'https://cdn.pika.dev/lit-element/v2';
+
+class TestElement extends lit.LitElement {
     constructor() {
         super();
         this.content = 'Component:';
@@ -17,7 +24,7 @@ class TestElement extends LitElement {
     }
 
     render(){
-        return html`
+        return lit.html`
             <h1>${this.content}</h1>
             <slot></slot>
 
@@ -31,7 +38,7 @@ class TestElement extends LitElement {
     }
 
     static get styles() {
-        return css`
+        return lit.css`
             :host {
                 display: block;
                 height: 50px;
@@ -45,4 +52,3 @@ class TestElement extends LitElement {
 }
 
 customElements.define('test-element', TestElement);
-*/
