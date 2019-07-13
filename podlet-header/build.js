@@ -2,6 +2,7 @@
 
 const { terser } = require('rollup-plugin-terser');
 const commonjs = require('rollup-plugin-commonjs');
+const replace = require('rollup-plugin-replace');
 const resolve = require('rollup-plugin-node-resolve');
 const rollup = require('rollup');
 const rimraf = require('rimraf');
@@ -21,6 +22,10 @@ const esmPreservedInputOptions = {
     // external: ['lit-element', 'wired-elements', 'vue'],
     //  external: ['lit-element'],
     plugins: [
+        replace({
+            ENVIRONMENT: JSON.stringify('production'),
+            'process.env.NODE_ENV': JSON.stringify('production'),
+        }),
         resolve(),
         commonjs(),
     ]
@@ -33,6 +38,10 @@ const esmBundeledInputOptions = {
     },
     // external: ['lit-element', 'wired-elements', 'vue'],
     plugins: [
+        replace({
+            ENVIRONMENT: JSON.stringify('production'),
+            'process.env.NODE_ENV': JSON.stringify('production'),
+        }),
         resolve(),
         commonjs(),
     ]
@@ -45,6 +54,10 @@ const esmMinifiedInputOptions = {
     },
     // external: ['lit-element', 'wired-elements', 'vue'],
     plugins: [
+        replace({
+            ENVIRONMENT: JSON.stringify('production'),
+            'process.env.NODE_ENV': JSON.stringify('production'),
+        }),
         resolve(),
         commonjs(),
         terser(),

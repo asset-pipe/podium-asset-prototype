@@ -2,5 +2,4 @@
 
 'use strict';
 
-// import 'wired-elements';
-import { WiredButton, WiredInput, WiredTextarea, WiredCard } from "wired-elements";
+import { WiredButton, WiredInput, WiredTextarea, WiredCard } from 'https://cdn.pika.dev/wired-elements/v1';

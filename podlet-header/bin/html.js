@@ -1,6 +1,8 @@
 'use strict';
 
 const header = data => {
-    return `<h1>Catnip tracker</h1>`;
+    return `
+        <h1 id="header"> </h1>
+    `;
 }
 module.exports.header = header;

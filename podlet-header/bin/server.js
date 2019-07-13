@@ -1,7 +1,8 @@
 'use strict';
 
-const fastifyStatic = require('fastify-static');
 const FastifyPodlet = require('@podium/fastify-podlet');
+const fastifyStatic = require('fastify-static');
+const fastifyCors = require('fastify-cors');
 const fastify = require('fastify');
 const Podlet = require('@podium/podlet');
 const html = require('./html');
@@ -14,12 +15,18 @@ const podlet = new Podlet({
     version: `2.0.0-${Date.now().toString()}`,
     logger: console,
     name: 'header',
+    development: true,
+});
+
+app.register(fastifyCors, {
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
+  origin: '*',
 });
 
 app.register(FastifyPodlet, podlet);
 
 app.register(fastifyStatic, {
-    root: path.join(__dirname, '../public/css/'),
+  root: path.join(__dirname, '../public/'),
 });
 
 app.get(podlet.content(), async (request, reply) => {
@@ -30,9 +37,9 @@ app.get(podlet.manifest(), async (request, reply) => {
     reply.send(podlet);
 });
 
-app.get(podlet.css({ value: '/public/css/main.css' }), (request, reply) => {
-    reply.sendFile('main.css');
-});
+podlet.css({ value: '/css/main.css' })
+podlet.js({ value: '/js/bundle.esm.min.js', type: 'esm' })
+
 
 // Run the server!
 const start = async () => {

@@ -1,10 +1,12 @@
 'use strict';
 
+const compression = require('compression');
 const express = require('express');
 const Podlet = require('@podium/podlet');
 const html = require('./html');
 
 const app = express();
+app.use(compression());
 
 const podlet = new Podlet({
     pathname: '/',
@@ -43,7 +45,9 @@ app.use('/public', express.static('public', {
     etag: false
 }));
 podlet.css({ value: '/public/css/main.css' });
-podlet.js({ value: '/public/js/esm/assets/js/main.js', type: 'esm' });
+// podlet.js({ value: '/public/js/esm/assets/js/main.js', type: 'esm' });
+podlet.js({ value: 'https://cdn.pika.dev/wired-elements/v1', type: 'esm' });
+podlet.js({ value: '/public/js/bundle.esm.min.js', type: 'esm' });
 
 app.listen(7300, () => {
     console.log(`http://localhost:7300`);
