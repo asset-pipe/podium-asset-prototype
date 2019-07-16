@@ -1,10 +1,12 @@
 'use strict';
 
+const importToUrl = require('rollup-plugin-esm-import-to-url');
 const { terser } = require('rollup-plugin-terser');
 const commonjs = require('rollup-plugin-commonjs');
 const resolve = require('rollup-plugin-node-resolve');
 const rollup = require('rollup');
 const rimraf = require('rimraf');
+const babel = require('rollup-plugin-babel');
 const path = require('path');
 
 const input = path.join(__dirname, 'assets/js/main.js');
@@ -18,11 +20,44 @@ const esmPreservedInputOptions = {
     onwarn: (warning, warn) => {
         // Supress logging
     },
-    // external: ['lit-element', 'wired-elements', 'vue'],
-    //  external: ['lit-element'],
     plugins: [
         resolve(),
         commonjs(),
+    ]
+};
+
+const iifeBundeledInputOptions = {
+    input,
+    onwarn: (warning, warn) => {
+        // Supress logging
+    },
+    external: ['wired-elements', 'lit-element'],
+    plugins: [
+        resolve(),
+        commonjs(),
+        babel({
+            exclude: 'node_modules/**', // only transpile our source code
+            babelrc: false,
+            presets: [['@babel/env', { modules: false }]],
+        })
+    ]
+};
+
+const iifeMinifiedInputOptions = {
+    input,
+    onwarn: (warning, warn) => {
+        // Supress logging
+    },
+    external: ['wired-elements', 'lit-element'],
+    plugins: [
+        resolve(),
+        commonjs(),
+        babel({
+            exclude: 'node_modules/**', // only transpile our source code
+            babelrc: false,
+            presets: [['@babel/env', { modules: false }]],
+        }),
+        terser(),
     ]
 };
 
@@ -31,8 +66,13 @@ const esmBundeledInputOptions = {
     onwarn: (warning, warn) => {
         // Supress logging
     },
-    // external: ['lit-element', 'wired-elements', 'vue'],
     plugins: [
+        importToUrl({
+            external: {
+                'wired-elements': 'https://cdn.pika.dev/wired-elements/v1',
+                'lit-element': 'https://cdn.pika.dev/lit-element/v2',
+            }
+        }),
         resolve(),
         commonjs(),
     ]
@@ -43,20 +83,13 @@ const esmMinifiedInputOptions = {
     onwarn: (warning, warn) => {
         // Supress logging
     },
-    // external: ['lit-element', 'wired-elements', 'vue'],
     plugins: [
-        resolve(),
-        commonjs(),
-        terser(),
-    ]
-};
-
-
-
-const cjsInputOptions = {
-    input,
-    preserveModules: false,
-    plugins: [
+        importToUrl({
+            external: {
+                'wired-elements': 'https://cdn.pika.dev/wired-elements/v1',
+                'lit-element': 'https://cdn.pika.dev/lit-element/v2',
+            }
+        }),
         resolve(),
         commonjs(),
         terser(),
@@ -97,22 +130,12 @@ const esmBundeledOutputOptions = {
     format: 'esm',
     sourcemap: true,
     file: path.join(output, '/bundle.esm.js'),
-    name: 'PodletImage',
-    globals: {
-        'wired-elements': 'WiredElements',
-        'lit-element': 'LitElement',
-    },
 };
 
 const esmMinifiedOutputOptions = {
     format: 'esm',
     sourcemap: true,
     file: path.join(output, '/bundle.esm.min.js'),
-    name: 'PodletImage',
-    globals: {
-        'wired-elements': 'WiredElements',
-        'lit-element': 'LitElement',
-    },
 };
 
 
@@ -121,11 +144,11 @@ async function build() {
     await preserved.write(esmDirectoryOutputOptions);
     console.log('src package build');
 
-    const iifeBundeled = await rollup.rollup(esmBundeledInputOptions);
+    const iifeBundeled = await rollup.rollup(iifeBundeledInputOptions);
     await iifeBundeled.write(iifeBundeledOutputOptions);
     console.log('iife package build');
 
-    const iifeMinified = await rollup.rollup(esmMinifiedInputOptions);
+    const iifeMinified = await rollup.rollup(iifeMinifiedInputOptions);
     await iifeMinified.write(iifeMinifiedOutputOptions);
     console.log('iife minified package build');
 

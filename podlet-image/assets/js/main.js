@@ -2,16 +2,8 @@
 
 'use strict';
 
-// import { WiredButton, WiredInput, WiredTextarea, WiredCard } from "wired-elements";
-// import * as pkg from 'https://cdn.pika.dev/wired-elements/v1';
-// import { WiredButton, WiredInput, WiredTextarea, WiredCard } from 'https://cdn.pika.dev/wired-elements/v1';
-
-// import { LitElement, html, css } from 'lit-element';
-
-// import { LitElement, html, css } from 'https://cdn.pika.dev/lit-element/v2';
-
-import { WiredButton, WiredInput, WiredTextarea, WiredCard } from 'https://cdn.pika.dev/wired-elements/v1';
-import * as lit from 'https://cdn.pika.dev/lit-element/v2';
+import { WiredButton, WiredInput, WiredTextarea, WiredCard } from 'wired-elements';
+import * as lit from 'lit-element';
 
 class TestElement extends lit.LitElement {
     constructor() {

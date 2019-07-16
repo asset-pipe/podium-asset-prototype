@@ -3,8 +3,7 @@
 'use strict';
 
 import 'leaflet';
-// import { WiredCard } from 'wired-elements';
-import { WiredCard } from 'https://cdn.pika.dev/wired-elements/v1';
+import { WiredCard } from 'wired-elements';
 
 const load = () => {
     const map = L.map('geo-map').setView([48.210033, 16.363449], 11);  // Vienna

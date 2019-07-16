@@ -39,7 +39,8 @@ app.use('/public', express.static('public', {
 
 podlet.css({ value: '/public/css/main.css' });
 
-podlet.js({ value: 'https://cdn.pika.dev/lit-element/v2', type: 'esm' });
+// podlet.js({ value: 'https://cdn.pika.dev/lit-element/v2', type: 'esm' });
+podlet.js({ value: '/public/js/bundle.iife.min.js', type: 'iife' });
 podlet.js({ value: '/public/js/bundle.esm.min.js', type: 'esm' });
 
 app.listen(7500, () => {
