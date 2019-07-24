@@ -68,7 +68,7 @@ const esmBundeledInputOptions = {
     },
     plugins: [
         importToUrl({
-            external: {
+            imports: {
                 'wired-elements': 'https://cdn.pika.dev/wired-elements/v1',
                 'lit-element': 'https://cdn.pika.dev/lit-element/v2',
             }
@@ -85,7 +85,7 @@ const esmMinifiedInputOptions = {
     },
     plugins: [
         importToUrl({
-            external: {
+            imports: {
                 'wired-elements': 'https://cdn.pika.dev/wired-elements/v1',
                 'lit-element': 'https://cdn.pika.dev/lit-element/v2',
             }

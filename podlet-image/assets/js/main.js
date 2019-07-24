@@ -3,9 +3,9 @@
 'use strict';
 
 import { WiredButton, WiredInput, WiredTextarea, WiredCard } from 'wired-elements';
-import * as lit from 'lit-element';
+import * as LitElement from 'lit-element';
 
-class TestElement extends lit.LitElement {
+class TestElement extends LitElement.LitElement {
     constructor() {
         super();
         this.content = 'Component:';
@@ -16,7 +16,7 @@ class TestElement extends lit.LitElement {
     }
 
     render(){
-        return lit.html`
+        return LitElement.html`
             <h1>${this.content}</h1>
             <slot></slot>
 
@@ -30,7 +30,7 @@ class TestElement extends lit.LitElement {
     }
 
     static get styles() {
-        return lit.css`
+        return LitElement.css`
             :host {
                 display: block;
                 height: 50px;
