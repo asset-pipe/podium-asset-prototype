@@ -37,8 +37,8 @@ app.get(podlet.manifest(), async (request, reply) => {
     reply.send(podlet);
 });
 
-podlet.css({ value: '/css/main.css' })
-podlet.js({ value: '/js/bundle.esm.min.js', type: 'esm' })
+podlet.css({ value: '/css/main.css' });
+podlet.js({ value: '/js/bundle.esm.min.js', type: 'esm' });
 
 
 // Run the server!

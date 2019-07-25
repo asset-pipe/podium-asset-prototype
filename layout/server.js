@@ -100,7 +100,7 @@ layout.css({ value: '/public/css/main.css' });
 
 layout.js({ value: 'https://cdn.pika.dev/wired-elements/v1', type: 'esm' });
 layout.js({ value: '/public/js/bundle.esm.min.js', type: 'esm' });
-layout.js({ value: '/public/cli/main.js', type: 'esm' });
+// layout.js({ value: '/public/cli/main.js', type: 'esm' });
 
 app.use((error, req, res, next) => {
     res.status(500).send('Internal server error');

@@ -3,6 +3,7 @@
 const importToUrl = require('rollup-plugin-esm-import-to-url');
 const { terser } = require('rollup-plugin-terser');
 const commonjs = require('rollup-plugin-commonjs');
+const replace = require('rollup-plugin-replace');
 const resolve = require('rollup-plugin-node-resolve');
 const rollup = require('rollup');
 const rimraf = require('rimraf');
@@ -35,6 +36,9 @@ const iifeBundeledInputOptions = {
     plugins: [
         resolve(),
         commonjs(),
+        replace({
+            'process.env.NODE_ENV': JSON.stringify('production')
+        }),
         babel({
             exclude: 'node_modules/**', // only transpile our source code
             babelrc: false,
@@ -52,6 +56,9 @@ const iifeMinifiedInputOptions = {
     plugins: [
         resolve(),
         commonjs(),
+        replace({
+            'process.env.NODE_ENV': JSON.stringify('production')
+        }),
         babel({
             exclude: 'node_modules/**', // only transpile our source code
             babelrc: false,
@@ -75,6 +82,9 @@ const esmBundeledInputOptions = {
         }),
         resolve(),
         commonjs(),
+        replace({
+            'process.env.NODE_ENV': JSON.stringify('production')
+        }),
     ]
 };
 
@@ -92,6 +102,9 @@ const esmMinifiedInputOptions = {
         }),
         resolve(),
         commonjs(),
+        replace({
+            'process.env.NODE_ENV': JSON.stringify('production')
+        }),
         terser(),
     ]
 };
