@@ -175,7 +175,7 @@ these are and what versions whould be available.
 These libraries will be uploaded to a CDN as ES Modules. The CDN will
 be serving files on HTTP/2 and each library will have a major URL which
 will redirect to the latest version of the library simmilar to whats
-described under [CDN](CDN).
+described under [CDN](#CDN).
 
 An overview of these libraries and their availabillity on the
 CDN will be provided in a `import-map` as follow:
@@ -259,7 +259,7 @@ when refered to multiple times there are no performance issues having
 two bundles refering the same global library.
 
 By doing the semver redirect on global libraries, as mentioned under
-[CDN](CDN), we are equaling out minor versions into one common version.
+[CDN](#CDN), we are equaling out minor versions into one common version.
 
 In other words; one podlet can locally be developed using `lit-html`
 version 1.1.0 while a second podlet can be developed using version
