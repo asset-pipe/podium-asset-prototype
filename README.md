@@ -1,8 +1,22 @@
 # Podium ES modules prototype
 
-This prototype is using Podium to build standalone fragments and composing them
-together into a full page. The focus of the prototype is to optimize development
-and serving of browser side javascript.
+This prototype is using [Podium](https://podium-lib) to build standalone fragments
+and composing them together into a full page. The focus of the prototype is to
+optimize development and serving of browser side javascript.
+
+Though; the approach in handling browser side javascript described here is not
+bound to Podium.
+
+This prototype implements the approach described under [The approache](#the_approache)
+for experimenting and testing.
+
+## Podium thermology
+
+Since we use Podium here some thermology are in place for those not so familliar
+with Podium.
+
+ - Podlet - A podlet is a small fragment of a page. In a microfrontend architecure this would be a microfrontend. Podlets are standalone HTTP servers serving its content.
+ - Layout - A layout is a composition of multiple podlets (microfrontends) into a structure. This is normally one webpage which live on one URL.
 
 ## Get up and running
 
@@ -10,11 +24,8 @@ This explains how to get up and running:
 
 ### Installation and running the prototype
 
-This prototype has five podlet servers (standalone fragments aka "podlets") and
-one layout server.
-
-To get started, in each server directory run the following command to install
-dependencies:
+This prototype has five podlets and one layout. To get started, in each server
+directory run the following command to install dependencies:
 
 ```sh
 npm install
@@ -58,18 +69,11 @@ This prototype explore serving browser side javascript as ES Modules in a
 for making it easy to develop in isolation but also maximize performance
 in such a setup.
 
-### Current challenges
-
-In a "microfrontend" setup when developing in isolation and composing
-runtime we see some challenges regarding client side assets:
-
- * Multiple podlet can pull in the same library resulting in duplicates when composed together in a layout.
-
 ### ES Modules
 
 ES Modules are at a stage where we can start using them. In our case
-(FINN.no) the amount of browsers not supporting ES Modules are arount
-1% of our traffic and comes more or less off only from IE11 users.
+(FINN.no) the amount of browsers not supporting ES Modules are around
+1% of our traffic and comes more or less only from IE11 users.
 
 There are a couple of very important aspects to know about ES Modules
 here:
@@ -98,29 +102,29 @@ import { foo } from 'a-library';
 
 A "bare" import specifier is normally used to refere to a installed
 library, ex from npm, which through a build step is replaced with a
-legal import specifier, normally `/`, `./` or `../`, during development
-and built for production deployment.
+legal import specifier, `/`, `./` or `../`, during development
+and when built for production deployment.
 
 For more about how ES Modules work, this is a good read: [https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/](https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/)
 
 ### Bundling, modules and HTTP/2
 
-The ideal solution would be if one could serve ES Modules unbundeled.
+The ideal solution would be if one could serve ES Modules un-bundeled.
 
 With HTTP/1 this is not plausable due to the amount of HTTP request
 roundtrips but there is a theory that with HTTP/2 one can let the
 protocol do the bundling.
 
-We have done some internal tests on serving unbundeled ES Modules over
-HTTP/2 and what we see is that up to a couple of handfull of files
-HTTP/2 does perform on the level of bundling these files into one
-file and serving it on HTTP/1.
+We have done some internal tests on serving un-bundeled ES Modules
+over HTTP/2 and what we see is that up to a couple of handfull of
+files, HTTP/2 does perform on the level of bundling these files into
+one file and serving it on HTTP/1.
 
 Any more files above a couple of handfulls and the protocol is not
 efficient enough to replace bundling.
 
 There is also an aspect of runtime performance hitting the js engine
-with unbundeled modules: [https://twitter.com/paul_irish/status/979867890080915456](https://twitter.com/paul_irish/status/979867890080915456)
+with un-bundeled modules: [https://twitter.com/paul_irish/status/979867890080915456](https://twitter.com/paul_irish/status/979867890080915456)
 
 ### CDN
 
@@ -170,11 +174,11 @@ In our set up, there will be a set of global libraries. These are
 libraries which is highly likely to be used by multiple podlets.
 As an example one such library might be `lit-html`. At FINN.no
 the frontend infrastructure team will dictate which libraries
-these are and what versions whould be available.
+these are and what versions which should be available.
 
 These libraries will be uploaded to a CDN as ES Modules. The CDN will
-be serving files on HTTP/2 and each library will have a major URL which
-will redirect to the latest version of the library simmilar to whats
+be serving files on HTTP/2 and each library will have a semver major URL
+which will redirect to the latest version of the library simmilar to whats
 described under [CDN](#CDN).
 
 An overview of these libraries and their availabillity on the
