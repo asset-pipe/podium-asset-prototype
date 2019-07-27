@@ -40,12 +40,12 @@ npm start
 
 Each server will then run on its own http port:
 
-Layout: [http://localhost:7000](http://localhost:7000)
-Header podlet: [http://localhost:7100](http://localhost:7100)
-Footer podlet: [http://localhost:7200](http://localhost:7200)
-Auth podlet: [http://localhost:7300](http://localhost:7300)
-Geo podlet: [http://localhost:7400](http://localhost:7400)
-Image podlet: [http://localhost:7500](http://localhost:7500)
+ - Layout: [http://localhost:7000](http://localhost:7000)
+ - Header podlet: [http://localhost:7100](http://localhost:7100)
+ - Footer podlet: [http://localhost:7200](http://localhost:7200)
+ - Auth podlet: [http://localhost:7300](http://localhost:7300)
+ - Geo podlet: [http://localhost:7400](http://localhost:7400)
+ - Image podlet: [http://localhost:7500](http://localhost:7500)
 
 ### Build assets
 
