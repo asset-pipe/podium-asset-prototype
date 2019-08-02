@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@podium/layout": "4.1.1",
+    "@podium/layout": "4.2.0-next",
     "compression": "^1.7.4",
     "express": "4.17.1"
   },
@@ -19,7 +19,7 @@
     "@babel/preset-env": "^7.5.4",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-esm-import-to-url": "^2.0.0",
-    "rollup": "^1.17.0",
+    "rollup": "^1.18.0",
     "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-node-resolve": "^5.1.0",
     "rollup-plugin-terser": "^5.1.1",

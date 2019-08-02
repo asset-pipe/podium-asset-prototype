@@ -44,13 +44,13 @@ app.route({
 
 app.route({
     method: 'GET',
-    path: podlet.css({ value: '/public/css/main.css' }),
+    path: '/public/css/main.css',
     handler: async (request, h) => {
         return h.file(filePath);
     },
 });
 
-// podlet.css({ value: '/public/css/main.css' });
+podlet.css({ value: '/public/css/main.css' });
 
 async function start() {
     try {

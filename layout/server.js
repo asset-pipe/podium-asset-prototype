@@ -16,37 +16,27 @@ const layout = new Layout({
 const header = layout.client.register({
     name: 'header',
     uri: 'http://localhost:7100/manifest.json',
-    resolveCss: true,
-    resolveJs: true,
 });
 
 const footer = layout.client.register({
     name: 'footer',
     uri: 'http://localhost:7200/manifest.json',
-    resolveCss: true,
-    resolveJs: true,
 });
 
 const auth = layout.client.register({
     name: 'auth',
     uri: 'http://localhost:7300/manifest.json',
-    resolveCss: true,
-    resolveJs: true,
 });
 
 const geo = layout.client.register({
     name: 'geo',
     uri: 'http://localhost:7400/manifest.json',
-    resolveCss: true,
-    resolveJs: true,
     throwable: false,
 });
 
 const images = layout.client.register({
     name: 'images',
     uri: 'http://localhost:7500/manifest.json',
-    resolveCss: true,
-    resolveJs: true,
 });
 
 app.use((req, res, next) => {
@@ -81,7 +71,8 @@ app.get('/', async (req, res, next) => {
 
         incoming.css = incoming.css.concat(podlets.map(item => item.css).reduce((a, b) => a.concat(b), []));
         incoming.js = incoming.js.concat(podlets.map(item => item.js).reduce((a, b) => a.concat(b), []));
-
+console.log(incoming.js);
+console.log(incoming.css);
         incoming.view = {
             title: 'Catnip Tracker Inc.',
         };
